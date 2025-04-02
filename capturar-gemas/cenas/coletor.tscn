@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://onhaooxw6qak"]
+
+[ext_resource type="Script" path="res://cenas/coletor.gd" id="1_khe05"]
+[ext_resource type="Texture2D" uid="uid://dht3x1boyar22" path="res://kenney_simple-space/PNG/Default/ship_C.png" id="1_x05jl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_de2ll"]
+radius = 15.0
+height = 72.0
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_khe05")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_x05jl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_de2ll")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccdf103bxae15"]
+
+[ext_resource type="Script" uid="uid://clpaicos7g0i2" path="res://scripts/nota.gd" id="1_tich3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_np0oh"]
+radius = 21.0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_np0oh"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+gravity = Vector3(0, 98, 0)
+
+[node name="Nota" type="Area2D"]
+script = ExtResource("1_tich3")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_np0oh")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+explosiveness = 0.8
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_np0oh")

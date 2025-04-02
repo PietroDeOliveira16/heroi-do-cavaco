@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://mdmjud20t8lo"]
+
+[ext_resource type="Script" uid="uid://bvst8v0kdyiuy" path="res://scripts/jogo.gd" id="1_7bb4d"]
+[ext_resource type="PackedScene" uid="uid://bpxrhwh1i3b7y" path="res://scenes/captador.tscn" id="2_sq8yp"]
+[ext_resource type="PackedScene" uid="uid://ccdf103bxae15" path="res://scenes/nota.tscn" id="3_1b3iq"]
+
+[node name="Jogo" type="Node2D"]
+script = ExtResource("1_7bb4d")
+cenaNota = ExtResource("3_1b3iq")
+cenaCaptador = ExtResource("2_sq8yp")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="Pontuacao" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 151.0
+offset_bottom = 84.0
+theme_override_font_sizes/font_size = 46
+text = "000000"
+
+[node name="Desempenho" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 30
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
