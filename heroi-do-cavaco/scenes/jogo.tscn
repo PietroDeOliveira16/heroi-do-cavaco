@@ -1,13 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://mdmjud20t8lo"]
+[gd_scene load_steps=8 format=3 uid="uid://mdmjud20t8lo"]
 
 [ext_resource type="Script" uid="uid://bvst8v0kdyiuy" path="res://scripts/jogo.gd" id="1_7bb4d"]
 [ext_resource type="PackedScene" uid="uid://bpxrhwh1i3b7y" path="res://scenes/captador.tscn" id="2_sq8yp"]
 [ext_resource type="PackedScene" uid="uid://ccdf103bxae15" path="res://scenes/nota.tscn" id="3_1b3iq"]
+[ext_resource type="Texture2D" uid="uid://cj4hrd4vlh2g2" path="res://assets/background.jpg" id="4_4sjka"]
+[ext_resource type="MidiResource" uid="uid://oyhcxn12ig7s" path="res://assets/songs/smells-like-teen-spirit-nirvana/smells-like-bass-midi.mid" id="4_k05ng"]
+[ext_resource type="AudioStream" uid="uid://dq6nb573ymiex" path="res://assets/songs/smells-like-teen-spirit-nirvana/videoplayback-_1_.wav" id="5_0c0ry"]
+[ext_resource type="AudioStream" uid="uid://bg2htwekgqsiu" path="res://assets/kenney_sci-fi-sounds/Audio/explosionCrunch_004.ogg" id="7_ogo8m"]
 
 [node name="Jogo" type="Node2D"]
 script = ExtResource("1_7bb4d")
 cenaNota = ExtResource("3_1b3iq")
 cenaCaptador = ExtResource("2_sq8yp")
+bpm = 117.0
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 327)
+scale = Vector2(1.12901, 1.17132)
+texture = ExtResource("4_4sjka")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = -1
+offset_left = 353.0
+offset_top = -2.0
+offset_right = 393.0
+offset_bottom = 38.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(9.63803, 19.0427)
+size_flags_horizontal = 4
+size_flags_vertical = 0
+color = Color(0, 0, 0, 0.388235)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchors_preset = -1
+offset_left = 738.0
+offset_top = 551.0
+offset_right = 778.0
+offset_bottom = 591.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(5.67085, 1.49707)
+size_flags_horizontal = 4
+size_flags_vertical = 0
+color = Color(0, 0, 0, 0.568627)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
@@ -25,4 +61,19 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_font_sizes/font_size = 30
 
+[node name="MidiPlayer" type="MidiPlayer" parent="."]
+midi = ExtResource("4_k05ng")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_0c0ry")
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 1.1
+one_shot = true
+
+[node name="Erro" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_ogo8m")
+volume_db = 24.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

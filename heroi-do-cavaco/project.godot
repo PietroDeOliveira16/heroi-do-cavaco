@@ -15,6 +15,10 @@ run/main_scene="uid://mdmjud20t8lo"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_midi/plugin.cfg")
+
 [input]
 
 captador_1={
