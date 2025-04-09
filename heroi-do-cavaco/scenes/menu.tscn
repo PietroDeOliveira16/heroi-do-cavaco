@@ -1,0 +1,96 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmfc2r724jda4"]
+
+[ext_resource type="Texture2D" uid="uid://bga20i5shdu2o" path="res://assets/dark-cavaco.png" id="1_yqeox"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.282353)
+position = Vector2(173, 329)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("1_yqeox")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -338.0
+offset_top = 11.0
+offset_right = 338.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 40
+text = "Bem vindo ao Heroi do Cavaco"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -339.0
+offset_top = 70.0
+offset_right = 337.0
+offset_bottom = 134.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 30
+text = "As regras são as seguintes"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -330.0
+offset_top = 128.0
+offset_right = 346.0
+offset_bottom = 335.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Use as teclas 'a', 's', 'k', e 'l' do teclado para ativar os captadores do cavaco, da esquerda para a direita, respectivamente. (Alternativamente, você pode utilizar 'r', 't', 'y' e 'u' para jogar apenas com uma mão"
+autowrap_mode = 2
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -556.0
+offset_top = 350.0
+offset_right = 120.0
+offset_bottom = 557.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Tente acertar as notas o mais precisamente possível. Existem diferentes tipos de desempenhos durante o jogo:"
+autowrap_mode = 2
+
+[node name="Label5" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -556.0
+offset_top = 490.0
+offset_right = 120.0
+offset_bottom = 697.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 28
+text = "Perfeito!"
+autowrap_mode = 2

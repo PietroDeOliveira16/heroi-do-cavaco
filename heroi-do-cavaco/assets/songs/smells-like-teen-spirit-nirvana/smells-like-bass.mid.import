@@ -1,0 +1,14 @@
+[remap]
+
+importer="com.nlaha.godotmidi"
+type="MidiResource"
+uid="uid://1acwutilkbob"
+path="res://.godot/imported/smells-like-bass.mid-5a52c63fc8cebdbe74de4f07161fbbe8.res"
+
+[deps]
+
+source_file="res://assets/songs/smells-like-teen-spirit-nirvana/smells-like-bass.mid"
+dest_files=["res://.godot/imported/smells-like-bass.mid-5a52c63fc8cebdbe74de4f07161fbbe8.res"]
+
+[params]
+

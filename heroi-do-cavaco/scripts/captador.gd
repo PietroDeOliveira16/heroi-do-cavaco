@@ -30,23 +30,28 @@ func _process(delta: float) -> void:
 			var pontosGanhos: int = 0
 			var textoPontos: String = ""
 			var cor: Color
+			var precisao: int = 0
 			if(diferenca > -8 && diferenca < 8):
 				pontosGanhos = 10
 				textoPontos = "Perfeito!"
 				cor = Color.GOLD
+				precisao = 4
 			elif(diferenca > -18 && diferenca < 18):
 				pontosGanhos = 5
 				textoPontos = "Bom!"
 				cor = Color.GREEN
+				precisao = 3
 			elif(diferenca > -28 && diferenca < 28):
 				pontosGanhos = 2
 				textoPontos = "Ruim"
 				cor = Color.LIGHT_CORAL
+				precisao = 2
 			else:
 				pontosGanhos = 1
 				textoPontos = "Horrível..."
 				cor = Color.DARK_RED
-			clicouNaNota.emit(nota, pontosGanhos, textoPontos, cor)
+				precisao = 1
+			clicouNaNota.emit(nota, pontosGanhos, textoPontos, cor, precisao)
 		else:
 			errouANota.emit()
 

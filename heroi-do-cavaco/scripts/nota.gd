@@ -2,7 +2,7 @@ extends Area2D
 
 class_name Nota
 
-@export var velocidade: float = 370.0
+@export var velocidade: float = 0.0
 @onready var sprite: Sprite2D = $Sprite2D
 signal notaCaiu
 
