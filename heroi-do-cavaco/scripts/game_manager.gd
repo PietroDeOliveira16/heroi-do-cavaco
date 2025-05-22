@@ -6,6 +6,7 @@ const musicaSelecionadaAudio = preload("res://assets/songs/smells-like-teen-spir
 @export var menu: PackedScene
 @export var jogo: PackedScene
 @export var fimDeJogo: PackedScene
+@export var salvarHS: PackedScene
 
 @export var medalhaPior: CompressedTexture2D = preload("res://assets/kenney_board-game-icons/PNG/Default (64px)/skull.png")
 @export var medalhaBronze: CompressedTexture2D = preload("res://assets/kenneymedals/PNG/flatshadow_medal2.png")
@@ -15,8 +16,14 @@ const musicaSelecionadaAudio = preload("res://assets/songs/smells-like-teen-spir
 var novoMenu
 var novoJogo
 var novoFimDeJogo
+var novoSalvarHighscore
+
+var salvarPontuacao = 0
 
 func _ready() -> void:
+	var dir = DirAccess.open("user://")
+	if not dir.dir_exists("leaderboard"):
+		var criarDir = dir.make_dir("leaderboard")
 	addMenu()
 
 func comecarJogo() -> void:
@@ -34,6 +41,7 @@ func mostrarTelaFimDeJogo(pontuacao: int) -> void:
 	novoFimDeJogo = fimDeJogo.instantiate()
 	novoFimDeJogo.jogarNovamente.connect(comecarJogo)
 	novoFimDeJogo.menu.connect(voltarMenu)
+	novoFimDeJogo.salvarHighscore.connect(salvarHighscore)
 	add_child(novoFimDeJogo)
 	if(pontuacao < 2500):
 		novoFimDeJogo.sprite.texture = medalhaPior
@@ -44,6 +52,7 @@ func mostrarTelaFimDeJogo(pontuacao: int) -> void:
 	else:
 		novoFimDeJogo.sprite.texture = medalhaOuro
 	novoFimDeJogo.pontuacaoLabel.text = str(pontuacao)
+	salvarPontuacao = pontuacao
 
 func voltarMenu() -> void:
 	for n in get_children():
@@ -55,3 +64,12 @@ func addMenu() -> void:
 	novoMenu = menu.instantiate()
 	novoMenu.comecarJogo.connect(comecarJogo)
 	add_child(novoMenu)
+	
+func salvarHighscore() -> void:
+	for n in get_children():
+		remove_child(n)
+		n.queue_free()
+	novoSalvarHighscore = salvarHS.instantiate()
+	novoSalvarHighscore.voltarMenu.connect(voltarMenu)
+	add_child(novoSalvarHighscore)
+	novoSalvarHighscore.labelTeste.text = str(salvarPontuacao)
