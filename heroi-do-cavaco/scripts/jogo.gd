@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Jogo
+
 @export var img_nota1: CompressedTexture2D = preload("res://assets/kenney_board-game-icons/PNG/Default (64px)/d2-red.png")
 @export var img_nota2: CompressedTexture2D = preload("res://assets/kenney_board-game-icons/PNG/Default (64px)/d2.png")
 @export var img_nota3: CompressedTexture2D = preload("res://assets/kenney_board-game-icons/PNG/Default (64px)/d2-green.png")
@@ -15,9 +17,10 @@ extends Node2D
 @onready var desempenhoLabel: Label = $Desempenho
 @onready var midiPlayer: MidiPlayer = $MidiPlayer
 @onready var audioPlayer: AudioStreamPlayer = $AudioStreamPlayer
-@onready var timerMusica: Timer = $Timer2
 @onready var playerErro: AudioStreamPlayer2D = $Erro
 @onready var multiplicadorLabel: Label = $MultiplicacaoCombo
+
+signal musicaAcabou
 
 var captadores = []
 var posicaoXCaptador: int = -180
@@ -43,7 +46,7 @@ const FA_SUS:String = "54"
 const LA:String = "57"
 const RE_SUS:String = "51"
 
-@export var velocidadeDaMusica: float = 370.0
+@export var velocidadeDasNotas: float = 0.0
 
 func _ready() -> void:
 	viewportSize = get_viewport_rect().size
@@ -57,8 +60,15 @@ func _ready() -> void:
 	multiplicadorLabel.text = "(" + str(combo) + "x)"
 	
 	midiPlayer.link_audio_stream_player([audioPlayer])
-	
 	midiPlayer.play()
+	
+func _process(delta: float) -> void:
+	if(Input.is_action_just_pressed("end_song_debbug")):
+		for n in get_children():
+			n.set_process(false)
+		midiPlayer.stop()
+		audioPlayer.stop()
+		musicaAcabou.emit(pontuacao)
 	
 func criarCaptadores() -> void:
 	captadores = [cenaCaptador.instantiate(), cenaCaptador.instantiate(), cenaCaptador.instantiate(), cenaCaptador.instantiate()]
@@ -75,7 +85,7 @@ func gerarNota(posicaoNota: int) -> void:
 	var nota = cenaNota.instantiate()
 	var viewportSize2: Vector2 = get_viewport_rect().size
 	nota.notaCaiu.connect(_nota_caiu_da_tela)
-	nota.velocidade = velocidadeDaMusica
+	nota.velocidade = velocidadeDasNotas
 	add_child(nota)
 	if(posicaoNota == 1):
 		nota.sprite.texture = img_nota1
@@ -104,15 +114,16 @@ func _captador_clicou_na_nota(area: Area2D, pontos: int, texto: String, cor: Col
 	desempenhoLabel.add_theme_color_override("font_color", cor)
 
 func _captador_errou_a_nota() -> void:
-	_perder_pontos((pontuacao * 0.05))
+	_perder_pontos(ceili((pontuacao * 0.01)))
 	combo = 1
 	multiplicadorLabel.text = "(" + str(combo) + "x)"
 	desempenhoLabel.text = "Errou!"
 	desempenhoLabel.add_theme_color_override("font_color", Color.RED)
-	playerErro.play(1.3)
+	playerErro.play()
+	
 
 func _nota_caiu_da_tela() -> void:
-	_perder_pontos((pontuacao * 0.1))
+	_perder_pontos(ceili((pontuacao * 0.05)))
 	combo = 1
 	multiplicadorLabel.text = "(" + str(combo) + "x)"
 	desempenhoLabel.text = "Errou!"
@@ -145,4 +156,6 @@ func my_note_callback(event, track):
 				gerarNota(2)
 	elif (event['subtype'] == MIDI_MESSAGE_NOTE_OFF): # note off
 		pass
-	print("[Track: " + str(track) + "] Note played: " + str(event['note']))
+
+func _on_audio_stream_player_finished() -> void:
+	musicaAcabou.emit(pontuacao)
