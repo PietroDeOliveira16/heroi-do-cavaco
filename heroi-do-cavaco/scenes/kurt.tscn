@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck7c1epo7kai6"]
+
+[ext_resource type="Script" uid="uid://7l16f4ksqmnn" path="res://scripts/kurt.gd" id="1_mlf1l"]
+[ext_resource type="Texture2D" uid="uid://mpcp311g3m23" path="res://assets/kurt-cobain-foto-divulgacao.jpg" id="1_vewpc"]
+[ext_resource type="AudioStream" uid="uid://cj4ptoab48vry" path="res://assets/vine-boom-162668.mp3" id="3_qvaeq"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_mlf1l")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+position = Vector2(577, 322)
+scale = Vector2(0.686979, 0.611111)
+texture = ExtResource("1_vewpc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_qvaeq")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

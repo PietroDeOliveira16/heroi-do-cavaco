@@ -1,6 +1,9 @@
+
+
 extends Node2D
 
 @onready var labelTeste = $LabelPontuacao
+@onready var labelStatusSalvarArquivo: Label = $LabelStatus
 @onready var nomeTextBox = $Nome
 @onready var escolaTextBox = $Escola
 
@@ -20,11 +23,25 @@ func _on_salvar_highscore_pressed() -> void:
 	var nomeFormatado = nome.to_upper()
 	pontuacao = int(labelTeste.text)
 	print(nome + "; ", escola + "; ", pontuacao)
-	var file = FileAccess.open("user://leaderboard/"+nomeFormatado+".txt", FileAccess.WRITE)
-	file.store_string("Nome: " + nome + "; Escola: "+ escola + "; Pontuacao: " + str(pontuacao))
-	print("Arquivo criado em " + ProjectSettings.globalize_path(file.get_path()))
-	file.close()
+	if(nome.is_empty() || escola.is_empty()):
+		erroAoSalvar()
+	else:
+		var file = FileAccess.open("user://leaderboard/"+nomeFormatado+".txt", FileAccess.WRITE)
+		var isFiledSaved = file.store_string("Nome: " + nome + "; Escola: "+ escola + "; Pontuacao: " + str(pontuacao))
+		if(isFiledSaved):
+			labelStatusSalvarArquivo.add_theme_color_override("font_color", Color.GREEN)
+			labelStatusSalvarArquivo.text = 'Arquivo salvo com sucesso!'
+			labelStatusSalvarArquivo.visible = true
+			print("Arquivo criado em " + ProjectSettings.globalize_path(file.get_path()))
+			file.close()
+		else:
+			erroAoSalvar()
+			file.close()
 
+func erroAoSalvar():
+		labelStatusSalvarArquivo.add_theme_color_override("font_color", Color.RED)
+		labelStatusSalvarArquivo.text = 'Erro ao salvar arquivo :('
+		labelStatusSalvarArquivo.visible = true
 
 func _on_cancelar_pressed() -> void:
 	voltarMenu.emit()

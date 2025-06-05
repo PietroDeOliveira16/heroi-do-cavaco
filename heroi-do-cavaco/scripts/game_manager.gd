@@ -7,6 +7,7 @@ const musicaSelecionadaAudio = preload("res://assets/songs/smells-like-teen-spir
 @export var jogo: PackedScene
 @export var fimDeJogo: PackedScene
 @export var salvarHS: PackedScene
+@export var cenaKurt: PackedScene
 
 @export var medalhaPior: CompressedTexture2D = preload("res://assets/kenney_board-game-icons/PNG/Default (64px)/skull.png")
 @export var medalhaBronze: CompressedTexture2D = preload("res://assets/kenneymedals/PNG/flatshadow_medal2.png")
@@ -38,16 +39,19 @@ func comecarJogo() -> void:
 	add_child(novoJogo)
 
 func mostrarTelaFimDeJogo(pontuacao: int) -> void:
+	if(pontuacao < 500):
+		get_tree().root.add_child(cenaKurt.instantiate())
+	
 	novoFimDeJogo = fimDeJogo.instantiate()
 	novoFimDeJogo.jogarNovamente.connect(comecarJogo)
 	novoFimDeJogo.menu.connect(voltarMenu)
 	novoFimDeJogo.salvarHighscore.connect(salvarHighscore)
 	add_child(novoFimDeJogo)
-	if(pontuacao < 2500):
+	if(pontuacao < 1500):
 		novoFimDeJogo.sprite.texture = medalhaPior
-	elif(pontuacao >= 2500 && pontuacao < 10000):
+	elif(pontuacao >= 1500 && pontuacao < 7500):
 		novoFimDeJogo.sprite.texture = medalhaBronze
-	elif(pontuacao >= 10000 && pontuacao < 45000):
+	elif(pontuacao >= 7500 && pontuacao < 15000):
 		novoFimDeJogo.sprite.texture = medalhaPrata
 	else:
 		novoFimDeJogo.sprite.texture = medalhaOuro

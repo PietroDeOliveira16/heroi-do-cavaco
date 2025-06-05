@@ -2,9 +2,13 @@ extends Node2D
 
 @onready var pontuacaoLabel: Label = $Pontuacao
 @onready var sprite: Sprite2D = $Sprite2D2
+@onready var btnJogarNovamente: Button = $JogarNovamente
 signal jogarNovamente
 signal menu
 signal salvarHighscore
+
+func _ready() -> void:
+	btnJogarNovamente.grab_focus()
 
 func _on_jogar_novamente_pressed() -> void:
 	jogarNovamente.emit()

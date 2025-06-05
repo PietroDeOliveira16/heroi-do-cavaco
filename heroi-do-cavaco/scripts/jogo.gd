@@ -123,7 +123,7 @@ func _captador_errou_a_nota() -> void:
 	
 
 func _nota_caiu_da_tela() -> void:
-	_perder_pontos(ceili((pontuacao * 0.05)))
+	_perder_pontos(ceili((pontuacao * 0.025)))
 	combo = 1
 	multiplicadorLabel.text = "(" + str(combo) + "x)"
 	desempenhoLabel.text = "Errou!"

@@ -32,17 +32,17 @@ func _process(delta: float) -> void:
 			var cor: Color
 			var precisao: int = 0
 			if(diferenca > -8 && diferenca < 8):
-				pontosGanhos = 10
+				pontosGanhos = 20
 				textoPontos = "Perfeito!"
 				cor = Color.GOLD
 				precisao = 4
-			elif(diferenca > -18 && diferenca < 18):
-				pontosGanhos = 5
+			elif(diferenca > -19 && diferenca < 19):
+				pontosGanhos = 10
 				textoPontos = "Bom!"
 				cor = Color.GREEN
 				precisao = 3
-			elif(diferenca > -28 && diferenca < 28):
-				pontosGanhos = 2
+			elif(diferenca > -29 && diferenca < 29):
+				pontosGanhos = 5
 				textoPontos = "Ruim"
 				cor = Color.LIGHT_CORAL
 				precisao = 2
